@@ -132,7 +132,7 @@ localhost:8000 -> sesuaikan dengan base url kalian
 #api tersebut mempunyai endpoint yang sama tetapi dibedakan berdasarkan request method
 #:id yang dimaksud ialah id photos
 {{base_url}}/api/v1/photos -> GET (menampilkan list photo) AUTH: NO
-{{base_url}}/api/v1/photos/:id -> GET (menampilkan list photo) AUTH: NO
+{{base_url}}/api/v1/photos/:id -> GET (menampilkan detail photo) AUTH: NO
 {{base_url}}/api/v1/photos -> POST (menambah data photo) AUTH:YES
 {{base_url}}/api/v1/photos/:id -> PUT (mengubah data photo) AUTH:YES
 {{base_url}}/api/v1/photos/:id -> DELETE (menghapus data photo) AUTH:YES
