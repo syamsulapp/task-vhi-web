@@ -74,7 +74,7 @@ composer install
 php -S localhost:8000 -t public || php artisan serve
 ```
 
-# migrate table db dan menjalankan seed
+# migrate table db, menjalankan seed dan link storage
 
 ```Bash
 #migrate datanya
