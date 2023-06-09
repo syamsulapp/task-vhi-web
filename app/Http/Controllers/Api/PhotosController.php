@@ -113,7 +113,7 @@ class PhotosController extends Controller
         if ($validator->fails()) {
             $result = $this->customError($validator->errors());
         } else {
-            if ($id > 0) {
+            if ($id > 0) { //mencegah input angka mines dan 0, id gak ada yang mines or 0
                 if ($update = $this->modelPhotos
                     ->whereId($id)
                     ->first()
@@ -135,7 +135,7 @@ class PhotosController extends Controller
      */
     public function destroy($id)
     {
-        if ($id > 0) {
+        if ($id > 0) { //mencegah input angka mines dan 0, id gak ada yang mines or 0
             if ($delete = $this->modelPhotos->whereId($id)->first()) {
                 if ($deletePhotosLike = $this->modelLikes->wherephotos_id($delete->id)) {
                     $deletePhotosLike->delete();
