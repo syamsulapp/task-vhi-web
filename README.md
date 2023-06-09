@@ -140,3 +140,9 @@ localhost:8000 -> sesuaikan dengan base url kalian
 {{base_url}}/api/v1/photos/:id/unlike -> POST (menghapus data photo) AUTH:YES
 
 ```
+
+# link collection
+
+```bash
+https://drive.google.com/file/d/1Ud7wVNzm8HdfBC9hsMZ9b1PJbkMR5hJv/view?usp=sharing
+```
