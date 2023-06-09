@@ -28,7 +28,7 @@ class PhotosController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = 50; //limit default perpage
+        $limit = 50; //limit default perpage jika datanya sudah melebihi dari batas/limit query
         if ($limit >= $request->limit) {
             $limit = $request->limit;
         }
@@ -145,13 +145,20 @@ class PhotosController extends Controller
      */
     public function like($id, Request $request)
     {
-        if ($photos = $this->modelPhotos->whereId($id)->first()) {
-            $result = $this->builder($this->modelLikes->create([
-                'photos_id' => $photos->id,
-                'users_id' => $request->user()->id
-            ]), 'berhasil like foto');
+        if ($id > 0) { //mencegah input angka mines dan 0, id gak ada yang mines or 0
+            if ($photos = $this->modelPhotos
+                ->whereId($id)
+                ->first()
+            ) {
+                $result = $this->builder($this->modelLikes->create([
+                    'photos_id' => $photos->id,
+                    'users_id' => $request->user()->id
+                ]), 'berhasil like foto');
+            } else {
+                $result = $this->builder('id not found', 'id tidak di temukan', 422);
+            }
         } else {
-            $result = $this->builder('id not found', 'id tidak di temukan', 422);
+            $result = $this->builder('insert id', 'masukan id photos', 422);
         }
         return $result;
     }
@@ -161,24 +168,28 @@ class PhotosController extends Controller
      */
     public function unlike($id, Request $request)
     {
-        if ($photos = $this->modelPhotos
-            ->whereId($id)
-            ->first()
-        ) {
-            if ($unlike = $this->modelLikes
-                ->wherephotos_id($photos->id)
-                ->first()
-                ->whereusers_id($request->user()->id)
+        if ($id > 0) { //mencegah input angka mines dan 0, id gak ada yang mines or 0
+            if ($photos = $this->modelPhotos
+                ->whereId($id)
                 ->first()
             ) {
-                //menghapus penyukaan foto berdasarkan foto yang kita sukai, buat mencegah menghapus like orang/user lain
-                $unlike->delete();
-                $result = $this->builder($photos, 'berhasil unlike foto');
+                if ($unlike = $this->modelLikes
+                    ->wherephotos_id($photos->id)
+                    ->first()
+                    ->whereusers_id($request->user()->id)
+                    ->first()
+                ) {
+                    //menghapus penyukaan foto berdasarkan foto yang kita sukai, buat mencegah menghapus like orang/user lain
+                    $unlike->delete();
+                    $result = $this->builder($photos, 'berhasil unlike foto');
+                } else {
+                    $result = $this->builder('have been unlike', 'foto sudah di unlike', 422);
+                }
             } else {
-                $result = $this->builder('have been unlike', 'foto sudah di unlike', 422);
+                $result = $this->builder('id not found', 'id tidak di temukan', 422);
             }
         } else {
-            $result = $this->builder('id not found', 'id tidak di temukan', 422);
+            $result = $this->builder('insert id photos', 'masukan id photos', 422);
         }
         return $result;
     }

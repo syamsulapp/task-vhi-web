@@ -97,16 +97,18 @@ php artisan migrate:rollback
 localhost:8000 -> sesuaikan dengan base url kalian
 
 #Login
-{{base_url}}/auth/login ->POST
+{{base_url}}/api/v1/auth/login ->POST
 #register
-{{base_url}}/auth/register ->POST
+{{base_url}}/api/v1/auth/register ->POST
 #logout
-{{base_url}}/auth/logout ->POST
+{{base_url}}/api/v1/auth/logout ->POST
+#profile dan update profile
+{{base_url}}/api/v1/auth/profile ->POST
+{{base_url}}/api/v1/auth/profile/update ->POST
+
 
 
 ```
-
-# Endpoint API PHOTOS
 
 # Access Ke Endpoint API Yang Menggunakan Session
 
@@ -119,15 +121,22 @@ localhost:8000 -> sesuaikan dengan base url kalian
     "Accept": "application/json",
     "Authorization": "Bearer {{token}}",
 }
+
+{{token}} => menggunakan json web token
 ```
 
 ```Bash
 
-#API master data product
+# Endpoint API Master Data PHOTOS, like dan unlike photos
+
 #api tersebut mempunyai endpoint yang sama tetapi dibedakan berdasarkan request method
-{{base_url}}/user/produk -> GET (menampilkan list produk)
-{{base_url}}/user/produk -> POST (menambah data produk)
-{{base_url}}/user/produk -> PUT (mengubah data produk)
-{{base_url}}/user/produk -> DELETE (menghapus data produk)
+#:id yang dimaksud ialah id photos
+{{base_url}}/api/v1/photos -> GET (menampilkan list photo) AUTH: NO
+{{base_url}}/api/v1/photos/:id -> GET (menampilkan list photo) AUTH: NO
+{{base_url}}/api/v1/photos -> POST (menambah data photo) AUTH:YES
+{{base_url}}/api/v1/photos/:id -> PUT (mengubah data photo) AUTH:YES
+{{base_url}}/api/v1/photos/:id -> DELETE (menghapus data photo) AUTH:YES
+{{base_url}}/api/v1/photos/:id/like -> POST (menghapus data photo) AUTH:YES
+{{base_url}}/api/v1/photos/:id/unlike -> POST (menghapus data photo) AUTH:YES
 
 ```
