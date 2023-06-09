@@ -99,8 +99,8 @@ class PhotosController extends Controller
         $data = $request->all();
         $validator = Validator::make($data, [
             'name' => 'string',
-            'caption' => 'string',
-            'tags' => 'string',
+            'caption' => 'string|required',
+            'tags' => 'string|required',
             'img' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ], [
             'required' => ':attribute jangan di kosongkan',
@@ -113,14 +113,18 @@ class PhotosController extends Controller
         if ($validator->fails()) {
             $result = $this->customError($validator->errors());
         } else {
-            if ($update = $this->modelPhotos
-                ->whereId($id)
-                ->first()
-            ) {
-                $update->update($data);
-                $result = $this->builder($update, 'Successfully Update');
+            if ($id > 0) {
+                if ($update = $this->modelPhotos
+                    ->whereId($id)
+                    ->first()
+                ) {
+                    $update->update($data);
+                    $result = $this->builder($update, 'Successfully Update');
+                } else {
+                    $result = $this->builder('id tidak di temukan', 'id not found', 422);
+                }
             } else {
-                $result = $this->builder('id tidak di temukan', 'id not found');
+                $result = $this->builder('insert id', 'masukan id photos', 422);
             }
         }
         return $result;
@@ -131,11 +135,18 @@ class PhotosController extends Controller
      */
     public function destroy($id)
     {
-        if ($delete = $this->modelPhotos->whereId($id)->first()) {
-            $delete->delete();
-            $result = $this->builder($delete, 'Successfully Delete Photos');
+        if ($id > 0) {
+            if ($delete = $this->modelPhotos->whereId($id)->first()) {
+                if ($deletePhotosLike = $this->modelLikes->wherephotos_id($delete->id)) {
+                    $deletePhotosLike->delete();
+                }
+                $delete->delete();
+                $result = $this->builder($delete, 'Successfully Delete Photos');
+            } else {
+                $result = $this->builder('id tidak ditemukan', 'id not found', 422);
+            }
         } else {
-            $result = $this->builder('id tidak ditemukan', 'id not found');
+            $result = $this->builder('insert id', 'masukan id photos', 422);
         }
         return $result;
     }
