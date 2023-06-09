@@ -81,7 +81,7 @@ class Auth extends Controller
 
     public function updateProfile(Request $request)
     {
-        //update all body profile users
+        //update all body profile users(langsung masukin body sedangkan id sudah otomatis by session)
         return $this->builder($this->user->where('id', $request->user()->id)->update($request->all()), 'Successfully update profile');
     }
 }
