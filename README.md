@@ -147,3 +147,32 @@ localhost:8000 -> sesuaikan dengan base url kalian
 #tinggal di import di postman
 https://drive.google.com/file/d/1Ud7wVNzm8HdfBC9hsMZ9b1PJbkMR5hJv/view?usp=sharing
 ```
+
+# response list photos
+
+```json
+{
+    "message": "Successfully Data",
+    "data": [
+        {
+            "id": 4,
+            "name": "foto samsul",
+            "caption": "kerja",
+            "tags": "photos",
+            "img": "images/EdVXabBcxFx47EyA6KHtmOx4NHt0qW9xBWwIKzAY.png",
+            "users_id": 3,
+            "created_at": "2023-06-09T04:57:18.000000Z",
+            "updated_at": "2023-06-09T04:57:18.000000Z",
+            "like": [ #object like berisikan list orang-orang yang memberikan like untuk foto tersebut
+                {
+                    "id": 33,
+                    "photos_id": 4,
+                    "users_id": 1,
+                    "created_at": "2023-06-09T04:57:48.000000Z",
+                    "updated_at": "2023-06-09T04:57:48.000000Z"
+                }
+            ]
+        }
+    ]
+}
+```
