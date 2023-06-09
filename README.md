@@ -1,10 +1,66 @@
 # introduce
 
-<h5>task vhi-web di build menggunakan framework laravel versi 10 dengan versi php 8.2, jadi pastikan versi php anda sudah diatas versi >=7</h5>
+<h5>task vhi-web di build menggunakan framework laravel versi 10 dengan versi php 8.2, jadi pastikan versi php yang anda gunakan sudah sesuai</h5>
 
 <h5>
 aktifkan require module php yang dibutukan untuk menjalankan framework tersebut, beberapa modul yang di harus di aktifkan ialah pdo_mysqli, mysqli, xml  dan mbstring, zip, dan curl
 </h5>
+
+```bash
+#berikut list lengkap dari module php yang digunakan
+[PHP Modules]
+calendar
+Core
+ctype
+curl
+date
+dom
+exif
+FFI
+fileinfo
+filter
+ftp
+gettext
+hash
+iconv
+json
+libxml
+mbstring
+mysqli
+mysqlnd
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+Phar
+posix
+random
+readline
+Reflection
+session
+shmop
+SimpleXML
+sockets
+sodium
+SPL
+standard
+sysvmsg
+sysvsem
+sysvshm
+tokenizer
+xml
+xmlreader
+xmlwriter
+xsl
+Zend OPcache
+zlib
+
+[Zend Modules]
+Zend OPcache
+
+
+```
 
 # composer run
 
