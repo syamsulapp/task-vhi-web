@@ -129,7 +129,7 @@ localhost:8000 -> sesuaikan dengan base url kalian
 
 # Endpoint API Master Data PHOTOS, like dan unlike photos
 
-#api tersebut mempunyai endpoint yang sama tetapi dibedakan berdasarkan request method
+#endpoint berdasarkan request dari soal
 #:id yang dimaksud ialah id photos
 {{base_url}}/api/v1/photos -> GET (menampilkan list photo) AUTH: NO
 {{base_url}}/api/v1/photos/:id -> GET (menampilkan detail photo) AUTH: NO
