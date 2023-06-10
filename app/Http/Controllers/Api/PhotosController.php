@@ -133,15 +133,19 @@ class PhotosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         if ($id > 0) { //mencegah input angka mines dan 0, id gak ada yang mines or 0
             if ($delete = $this->modelPhotos->whereId($id)->first()) {
-                if ($deletePhotosLike = $this->modelLikes->wherephotos_id($delete->id)) {
-                    $deletePhotosLike->delete();
+                if ($delete->users_id === $request->user()->id) { // untuk mencegah agar orang lain agar tidak bisa menghapus foto yang bukan miliknya
+                    if ($deletePhotosLike = $this->modelLikes->wherephotos_id($delete->id)) {
+                        $deletePhotosLike->delete();
+                    }
+                    $delete->delete();
+                    $result = $this->builder($delete, 'Successfully Delete Photos');
+                } else {
+                    $result = $this->builder('not your photo', 'tidak bisa di hapus karena bukan foto anda', 422);
                 }
-                $delete->delete();
-                $result = $this->builder($delete, 'Successfully Delete Photos');
             } else {
                 $result = $this->builder('id tidak ditemukan', 'id not found', 422);
             }
