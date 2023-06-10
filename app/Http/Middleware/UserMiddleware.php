@@ -46,10 +46,10 @@ class UserMiddleware implements AuthenticatesRequests
     {
         $this->authenticate($request, $guards);
 
-        if ($this->user->user()->role_id === 1) {
+        if ($this->user->user()->role_id !== 1) {
             return $next($request);
         } else {
-            return response()->json(['message' => 'is not your role'], 401);
+            return response()->json(['message' => 'admin tidak boleh akses fitur ini'], 401);
         }
     }
 
