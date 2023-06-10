@@ -118,8 +118,12 @@ class PhotosController extends Controller
                     ->whereId($id)
                     ->first()
                 ) {
-                    $update->update($data);
-                    $result = $this->builder($update, 'Successfully Update');
+                    if ($update->users_id === $request->user()->id) {
+                        $update->update($data);
+                        $result = $this->builder($update, 'Successfully Update');
+                    } else {
+                        $result = $this->builder('not your photo', 'tidak bisa di update karena bukan foto anda', 422);
+                    }
                 } else {
                     $result = $this->builder('id tidak di temukan', 'id not found', 422);
                 }
@@ -137,7 +141,7 @@ class PhotosController extends Controller
     {
         if ($id > 0) { //mencegah input angka mines dan 0, id gak ada yang mines or 0
             if ($delete = $this->modelPhotos->whereId($id)->first()) {
-                if ($delete->users_id === $request->user()->id) { // untuk mencegah agar orang lain agar tidak bisa menghapus foto yang bukan miliknya
+                if ($delete->users_id === $request->user()->id) { // untuk mencegah agar orang lain tidak bisa menghapus foto yang bukan miliknya
                     if ($deletePhotosLike = $this->modelLikes->wherephotos_id($delete->id)) {
                         $deletePhotosLike->delete();
                     }
@@ -194,7 +198,7 @@ class PhotosController extends Controller
                     ->whereusers_id($request->user()->id)
                     ->first()
                 ) {
-                    //menghapus penyukaan foto berdasarkan foto yang kita sukai, buat mencegah menghapus like orang/user lain
+                    //menghapus penyukaan foto berdasarkan foto yang kita sukai, dan mencegah menghapus like orang/user lain
                     $unlike->delete();
                     $result = $this->builder($photos, 'berhasil unlike foto');
                 } else {
