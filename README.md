@@ -68,7 +68,7 @@ Zend OPcache
 composer install
 ```
 
-# Start Local Development Server Ngandre API
+# Start Local Development Server API(laravel) vhiWeb
 
 ```Bash
 php -S localhost:8000 -t public || php artisan serve
