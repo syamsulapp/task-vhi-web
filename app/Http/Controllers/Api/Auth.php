@@ -62,7 +62,7 @@ class Auth extends Controller
             $result = $this->customError($validator->errors());
         } else {
             $data['password'] = Hash::make($request->password); //encrypt passwordnya
-            $data['role_id'] = 1; //secara default setelah register jadi role user
+            $data['role_id'] = 2; //secara default setelah register jadi role user
             $result = $this->builder($this->user->create($data)); // submit semua data yang mau di register
         }
         return $result;
